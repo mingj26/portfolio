@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name | Portfolio</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --bg-soft: #121933;
+        --card: rgba(255, 255, 255, 0.06);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: #eef2ff;
+        --muted: #aab4d4;
+        --accent: #8fb3ff;
+        --accent-strong: #c7d8ff;
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        --max-width: 1080px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Noto Sans KR", Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(143, 179, 255, 0.18), transparent 28%),
+          radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 20%),
+          linear-gradient(180deg, #0b1020 0%, #0c1124 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(var(--max-width), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+        background: rgba(11, 16, 32, 0.72);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .menu {
+        display: flex;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .menu a:hover {
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 88px 0 56px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 28px;
+        align-items: stretch;
+      }
+
+      .hero-card,
+      .panel,
+      .project-card,
+      .timeline-item {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card {
+        padding: 40px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(143, 179, 255, 0.12);
+        border: 1px solid rgba(143, 179, 255, 0.24);
+        color: var(--accent-strong);
+        font-size: 0.92rem;
+        margin-bottom: 18px;
+      }
+
+      h1, h2, h3, p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4.6rem);
+        line-height: 1.05;
+        margin-bottom: 18px;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 700px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255,255,255,0.28);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, rgba(143, 179, 255, 0.22), rgba(199, 216, 255, 0.12));
+      }
+
+      .btn-secondary {
+        color: var(--muted);
+      }
+
+      .panel {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 28px;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, rgba(143, 179, 255, 0.25), rgba(255, 255, 255, 0.08));
+        border: 1px solid rgba(255,255,255,0.16);
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .mini-item span {
+        display: block;
+      }
+
+      .mini-item .label {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+      }
+
+      section {
+        padding: 32px 0;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+      }
+
+      .section-head p {
+        color: var(--muted);
+        max-width: 560px;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .panel h3 {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      .panel p,
+      .panel li,
+      .project-card p,
+      .timeline-item p {
+        color: var(--muted);
+      }
+
+      .stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag {
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.04);
+        font-size: 0.92rem;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .project-card {
+        padding: 24px;
+        min-height: 240px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .project-card .status {
+        color: var(--accent-strong);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .project-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.15rem;
+      }
+
+      .project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 14px;
+      }
+
+      .timeline-item {
+        padding: 22px;
+      }
+
+      .timeline-item strong {
+        display: inline-block;
+        margin-bottom: 6px;
+      }
+
+      .contact-box {
+        padding: 28px;
+        text-align: center;
+      }
+
+      .contact-box p {
+        color: var(--muted);
+        margin-top: 10px;
+      }
+
+      .footer {
+        padding: 36px 0 54px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 960px) {
+        .hero-grid,
+        .about-grid,
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 56px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          width: min(var(--max-width), calc(100% - 24px));
+        }
+
+        .nav-inner {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .menu {
+          gap: 12px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .hero-card,
+        .panel,
+        .project-card,
+        .timeline-item,
+        .contact-box {
+          border-radius: 20px;
+        }
+
+        .hero-card {
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#home">Your Name</a>
+        <div class="menu">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#journey">Journey</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">🎓 Graduate Student · Developer Portfolio</div>
+          <h1>
+            공부하는 과정도<br />
+            포트폴리오가 되도록.
+          </h1>
+          <p>
+            아직 큰 프로젝트가 많지 않아도 괜찮습니다. 지금 이 페이지는
+            제가 어떤 분야에 관심이 있고, 무엇을 배우고 있으며, 앞으로 어떤
+            개발자로 성장하려는지 보여주기 위한 개인 포트폴리오입니다.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">프로젝트 보기</a>
+            <a class="btn btn-secondary" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <div class="avatar">YN</div>
+          <div class="mini-list">
+            <div class="mini-item">
+              <span class="label">관심 분야</span>
+              <span>Backend · AI · Data</span>
+            </div>
+            <div class="mini-item">
+              <span class="label">현재 상태</span>
+              <span>대학원 재학 / 포트폴리오 구축 중</span>
+            </div>
+            <div class="mini-item">
+              <span class="label">한 줄 소개</span>
+              <span>기초를 깊게 쌓는 개발자를 목표로 합니다.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section id="about">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>About Me</h2>
+            </div>
+            <p>
+              화려한 이력보다도, 지금까지 무엇을 배우고 어떤 방향으로 쌓아가고 있는지
+              명확하게 보여주는 페이지를 지향합니다.
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <article class="panel">
+              <div>
+                <h3>소개</h3>
+                <p>
+                  안녕하세요. [전공] 대학원에서 공부하고 있는 [이름]입니다.
+                  현재는 [백엔드 / AI / 데이터] 분야에 관심을 두고, 이론과 실습을 함께
+                  쌓아가고 있습니다. 아직 포트폴리오는 성장 중이지만, 학습 기록과 작은 구현을
+                  꾸준히 남기며 개발자로서의 기반을 만들어가고 있습니다.
+                </p>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div>
+                <h3>Tech Stack</h3>
+                <div class="stack">
+                  <span class="tag">Python</span>
+                  <span class="tag">Java</span>
+                  <span class="tag">C++</span>
+                  <span class="tag">Spring Boot</span>
+                  <span class="tag">FastAPI</span>
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">MySQL</span>
+                  <span class="tag">Git / GitHub</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Projects</h2>
+            </div>
+            <p>
+              아직 완성된 대형 프로젝트가 없어도 괜찮습니다. 작은 실습, 연구 보조 코드,
+              학습용 구현도 충분히 좋은 출발점이 됩니다.
+            </p>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card">
+              <div>
+                <div class="status">Planned Project</div>
+                <h3>Study Archive</h3>
+                <p>
+                  자료구조, 알고리즘, 시스템 설계, 논문 구현 등 학습 내용을 정리하는 저장소입니다.
+                </p>
+              </div>
+              <div class="project-meta">
+                <span class="tag">Notes</span>
+                <span class="tag">Algorithm</span>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div>
+                <div class="status">Coming Soon</div>
+                <h3>Mini Service</h3>
+                <p>
+                  간단한 웹 서비스 또는 API 서버를 직접 설계하고 배포하는 개인 프로젝트를 준비 중입니다.
+                </p>
+              </div>
+              <div class="project-meta">
+                <span class="tag">Backend</span>
+                <span class="tag">Deployment</span>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div>
+                <div class="status">Research Practice</div>
+                <h3>Research Implementation</h3>
+                <p>
+                  대학원 연구와 연결되는 코드 실험, 데이터 전처리, 모델 테스트 결과를 정리할 예정입니다.
+                </p>
+              </div>
+              <div class="project-meta">
+                <span class="tag">AI</span>
+                <span class="tag">Experiment</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="journey">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>Journey</h2>
+            </div>
+            <p>
+              아직 결과보다 과정이 더 많은 시기라면, 그 과정을 정리해서 보여주는 편이 낫습니다.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <strong>현재</strong>
+              <p>대학원 과정과 병행하며 개발 역량을 쌓고 있습니다.</p>
+            </article>
+            <article class="timeline-item">
+              <strong>학습 중</strong>
+              <p>백엔드 기초, 모델 구현, GitHub 기반 포트폴리오 정리에 집중하고 있습니다.</p>
+            </article>
+            <article class="timeline-item">
+              <strong>다음 목표</strong>
+              <p>작더라도 실제로 동작하는 프로젝트를 만들고, README와 배포까지 연결할 예정입니다.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <div class="contact-box hero-card">
+            <h2>Contact</h2>
+            <p>
+              협업, 연구, 또는 개발 관련 이야기 환영합니다.
+            </p>
+            <div class="hero-actions" style="justify-content:center; margin-top: 20px;">
+              <a class="btn btn-primary" href="mailto:your-email@example.com">your-email@example.com</a>
+              <a class="btn btn-secondary" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">github.com/your-github-id</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        © 2026 Your Name. Built with GitHub Pages.
+      </div>
+    </footer>
+  </body>
+</html>
